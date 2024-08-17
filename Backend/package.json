@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "backend": "file:",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.3",
