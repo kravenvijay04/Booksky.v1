@@ -11,6 +11,7 @@ app.get('/', (req, res) => {
     return res.status(555).send("Welcome to booksky website");
 })
 
+//Route for post a book
 app.post('/book', async (req, res) => {
     try {
         if (!req.body.title || !req.body.author || !req.body.publishedYear) {
@@ -26,6 +27,55 @@ app.post('/book', async (req, res) => {
         const Book = await book.create(newBook)
 
         return res.status(202).send(Book);
+    }
+    catch (error) {
+        console.log(error.message)
+        res.status(200).send({ message: error.message })
+    }
+})
+//Route for get all book 
+app.get('/books', async (req, res) => {
+    try {
+        const Book = await book.find({});
+        return res.status(202).json({
+            count: book.length,
+            data: Book
+        })
+    }
+    catch (error) {
+        console.log(error.message)
+        res.status(200).send({ message: error.message })
+    }
+})
+
+//Route for get book by ID
+app.get('/books/:id', async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        const Book = await book.findById(id);
+        return res.status(202).json(Book)
+    }
+    catch (error) {
+        console.log(error.message)
+        res.status(200).send({ message: error.message })
+    }
+})
+
+//Rout for update a book by id
+app.put('/books/:id', async (req, res) => {
+    try {
+        if (!req.body.title || !req.body.author || !req.body.publishedYear) {
+            res.status(202).send({
+                message: "send all required fields"
+            })
+        }
+        const { id } = req.params;
+        const result = await book.findByIdAndUpdate(id, req.body);
+        if (!result) {
+            return res.status(202).json({ message: "book not found" })
+        }
+        return res.status(202).json({ message: "Book updated successfully" })
     }
     catch (error) {
         console.log(error.message)
