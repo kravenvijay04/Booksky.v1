@@ -49,7 +49,7 @@ router.get('/:id', async (req, res) => {
     catch (error) {
         console.log(error.message)
         res.status(200).send({ message: error.message })
-    }
+    } 
 })
 //Rout for update a book by id
 router.put('/:id', async (req, res) => {
