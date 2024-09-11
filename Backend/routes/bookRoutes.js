@@ -2,7 +2,7 @@ import express from "express"
 import { book } from "../models/bookmodels.js"
 const router = express.Router();
  
-//Route for post a book
+//Route for post a book 
 router.post('/', async (req, res) => {
     try {
         if (!req.body.title || !req.body.author || !req.body.publishedYear) {
